@@ -172,6 +172,11 @@ module StpeteCrystal
 
 end
 ```
+Notice that we've also `require "kemal"` on the second line to use the shard we installed.
+
+Start the app again `crystal src/stpete_crystal.cr`. You'll notice that, like Puma or Rainbow
+for Ruby, the app is now web-serving on port 3000.  So you go your browser and take a look
+at http:://localhost:3000/hello and see what you get.
 
 And for fun, let's personalize it, too.  
 
@@ -191,7 +196,30 @@ module StpeteCrystal
 end
 ```
 
-So far, so good.
+So now you go to http://localhost/hello and you get "Hello, world!". 
+Go to http://localhost/hello/jason and you get "Hello, Jason!"  Awesomeness!
+
+Once thing that's amazing about the crystal compiler -- did you even
+notice that it's statically-typed?  Static typing is a good thing: it offers lots of 
+benefits without too much rigidity.  More on that later.
+
+### Sessions
+
+Sessions are essential for a web server.  Kemal has a session manager shard which 
+we'll to the `shard.yml` file directly under the kemal shard:
+
+```yml
+dependencies:
+	kemal:
+		github: kemalcr/kemal
+		branch: master
+	kemal-session:
+		github: kemalcr/kemal-session
+		branch: master
+```
+
+run `shards install`  
+
 
 
 ## Contributors

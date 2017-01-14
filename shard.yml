@@ -12,6 +12,9 @@ dependencies:
   kemal:
     github: kemalcr/kemal
     branch: master
+  kemal-session:
+    github: kemalcr/kemal-session
+    branch: master
 
 crystal: 0.20.3
 
