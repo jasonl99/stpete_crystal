@@ -12,11 +12,11 @@ code for the app is also here.
 #### Crystal
 
 First, you need to install [crystal](https://crystal-lang.org/docs/installation/).  Easy enough,
-unless you're running Windows.  Sorry no, no crystal for Windows.  You can confirm that it's
+unless you're running Windows.  Sorry, no crystal for Windows.  You can confirm that it's
 installed correctly, by running `crystal -v` in a terminal.  Right now, I'm
 running `Crystal 0.20.3 [b1416e2] (2016-12-23)`.
 
-I use Ubunutu (and this applies to all Debian distros), so I simply add the crystal repository to
+I use Ubunutu (and this applies to all Debian-based distributions), so I simply add the crystal repository to
 my system:
 
 ```bash
@@ -29,7 +29,7 @@ Installation is that simple.
 
 ## The stppete_crystal app
 #### Initialize the app
-My personal preference is to have a ~/crystal folder where all my projects live, so that's
+My personal preference is to have a `~/crystal` folder where all my projects live, so that's
 where it will exist throughout this demo.
 
 
@@ -53,7 +53,7 @@ of code to a file that crystal created.
 In the `./src/` directory, you'll find `stpete_crystal.cr`.  Add the line right where the code
 tells you to (seriously, the generator added `# Put your code here`, how cool is that?)
 
-```ruby
+```crystal
 require "./stpete_crystal/*"
 
 module StpeteCrystal
@@ -80,7 +80,7 @@ we have to personalize `hello world`.  I think it's mandatory once you've invoke
 
 So we change our line of code to something very familiar to rubyists.  A string interpolation:
 
-```ruby
+```crystal
 puts "Hello, #{ARGV[0]? || "world"}!"
 ```
 
@@ -159,7 +159,7 @@ just respond to a request to "hello":
 
 We go back to `/src/stpete_crystal.cr`, and change it up a little:
 
-```ruby
+```crystal
 require "./stpete_crystal/*"
 require "kemal"
 
@@ -175,7 +175,7 @@ end
 Notice that we've also `require "kemal"` on the second line to use the shard we installed.
 
 Start the app again `crystal src/stpete_crystal.cr`. You'll notice that, like Puma or Rainbow
-for Ruby, the app is now web-serving on port 3000.  So you go your browser and take a look
+for Ruby, the app is now serving http on port 3000.  So you go your browser and take a look
 at http:://localhost:3000/hello and see what you get.
 
 And for fun, let's personalize it, too.  
@@ -196,12 +196,13 @@ module StpeteCrystal
 end
 ```
 
-So now you go to http://localhost/hello and you get "Hello, world!". 
-Go to http://localhost/hello/jason and you get "Hello, Jason!"  Awesomeness!
+So now you go to http://localhost/hello and you get `Hello, world!`. 
+Go to http://localhost/hello/jason and you get `Hello, Jason!`  Awesomeness!
 
 Once thing that's amazing about the crystal compiler -- did you even
-notice that it's statically-typed?  Static typing is a good thing: it offers lots of 
-benefits without too much rigidity.  More on that later.
+notice that it's statically-typed?  Static typing *can* good thing: it offers lots of 
+benefits, but often comes with difficult rigidity.  Crystal makes this much easier.  
+More on that later.
 
 ### Sessions
 
@@ -218,7 +219,35 @@ dependencies:
 		branch: master
 ```
 
-run `shards install`  
+run `shards install` 
+
+We'll configure sessions in the `crystal src/stpete_crystal.cr` again:
+
+```crystal
+require "./stpete_crystal/*"
+require "kemal"
+
+module StpeteCrystal
+
+  Session.config do |config|
+    config.cookie_name = "session_id"
+    config.secret = "sunshine"
+    config.gc_interval = 2.minutes
+  end
+
+  get "/hello" do |context|
+    "Hello, web!"
+  end
+
+  get "/hello/:name" do |context|
+    name = context.params.url["name"]
+    "Hello, #{name.capitalize}!"
+  end
+
+  Kemal.run
+
+end
+```
 
 
 
