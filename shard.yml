@@ -1,0 +1,18 @@
+name: stpete_crystal
+version: 0.1.0
+
+authors:
+  - Jason Landry <jasonl99@gmail.com>
+
+targets:
+  stpete_crystal:
+    main: src/stpete_crystal.cr
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    branch: master
+
+crystal: 0.20.3
+
+license: MIT
