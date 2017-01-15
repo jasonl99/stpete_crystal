@@ -11,7 +11,7 @@ code for the app is also here.
 
 #### Crystal
 
-#### What is [Crystal](https://crystal-lang.org/docs/installation/)
+#### What is [Crystal](https://crystal-lang.org/docs/installation/) anyway?
 
 Well, the crystal-lang.org describes it this way:
 * Have a syntax similar to Ruby (but compatibility with it is not a goal)
