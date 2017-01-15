@@ -124,9 +124,6 @@ it looks like this:
 name: stpete_crystal
 version: 0.1.0
 
-authors:
-  - Jason Landry <jasonl99@gmail.com>
-
 targets:
   stpete_crystal:
     main: src/stpete_crystal.cr
@@ -142,9 +139,6 @@ adding it under the targets: section.  The whole file should now look like this:
 ```yml
 name: stpete_crystal
 version: 0.1.0
-
-authors:
-  - Jason Landry <jasonl99@gmail.com>
 
 targets:
   stpete_crystal:
