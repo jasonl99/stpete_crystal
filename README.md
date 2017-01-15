@@ -11,7 +11,20 @@ code for the app is also here.
 
 #### Crystal
 
-First, you need to install [crystal](https://crystal-lang.org/docs/installation/).  Easy enough,
+#### What is [Crystal](https://crystal-lang.org/docs/installation/)
+
+Well, the crystal-lang.org describes it this way:
+* Have a syntax similar to Ruby (but compatibility with it is not a goal)
+* Statically type-checked but without having to specify the type of variables or method arguments.
+* Be able to call C code by writing bindings to it in Crystal.
+* Have compile-time evaluation and generation of code, to avoid boilerplate code.
+* Compile to efficient native code.
+
+It has the best of both worlds -- the native speed of C with the joy of programming that ruby provides.
+
+#### Installation
+
+Installing crystal is easy enough,
 unless you're running Windows.  Sorry, no crystal for Windows.  You can confirm that it's
 installed correctly, by running `crystal -v` in a terminal.  Right now, I'm
 running `Crystal 0.20.3 [b1416e2] (2016-12-23)`.
