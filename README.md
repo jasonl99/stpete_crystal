@@ -27,7 +27,7 @@ sudo apt-get install crystal
 Installation is that simple.
 
 
-## The stppete_crystal app
+## The stpete_crystal app
 #### Initialize the app
 My personal preference is to have a `~/crystal` folder where all my projects live, so that's
 where it will exist throughout this demo.
@@ -58,7 +58,7 @@ require "./stpete_crystal/*"
 
 module StpeteCrystal
   # TODO Put your code here
-  puts "Hello, world"
+  puts "Hello, world!"
 end
 ```
 
@@ -72,19 +72,20 @@ crystal src/stpete_crystal.cr
 And lo and behold, look what happens!
 
 ```bash
-Hello, world.
+Hello, world!
 ```
 
 Modern technology never ceases to amaze me.  But let's just show a couple more things.  First,
-we have to personalize `hello world`.  I think it's mandatory once you've invoked `hello world`.
+we have to personalize `hello world`.  I think it's mandatory once you've invoked it.
 
-So we change our line of code to something very familiar to rubyists.  A string interpolation:
+So we change our line of code to something very familiar to rubyists.  String interpolation:
 
 ```crystal
 puts "Hello, #{ARGV[0]? || "world"}!"
 ```
 
-From the terminal again:
+From the terminal:
+
 ```bash
 crystal src/stpete_crystal.cr         # Hello, world!
 crystal src/stpete_crystal.cr Jason   # Hello, Jason!
@@ -92,15 +93,15 @@ crystal src/stpete_crystal.cr Jason   # Hello, Jason!
 
 Ok, great.  It works.  I'm bored, can we do something useful?  Why yes, yes we can.
 
-#### Add Shards
+#### Add Shards.  Add what??
 
-Crystal has a similar concept to ruby `gems`, installable libraries that you include in your app.
-Instead of `gems`, they are `shards` in crystal.  We'll be using 
-[kemal](http:://kemalcr.com), a "Lighting fast, super simple web framework written in Crystal"
+Crystal has a similar concept to ruby `gems`, installable libraries that you include easily in your app.
+Instead of `gems`, they're called `shards` in crystal.  We'll be using 
+[kemal](http:://kemalcr.com), a "lighting fast, super simple web framework written in Crystal"
 
-kemal is **not** Ruby on Rails.  It's not a giant MVC framework.  It's a simpler web routing
+kemal is **not** Ruby on Rails, not is it designed to be.  It's not a giant MVC framework.  It's a simpler web routing
 library from which larger MVC frameworks can be (and are being) built.  It's similar to Rails'
-routes, but at a lower level.
+routes, but at a lower level, and with some cool functionality like websockets.
 
 So let's add kemal to our app.  To install shards, we edit the `shard.yml` file at the 
 root of our app that was created by `crystal init app`.  Before we add our changes, 
@@ -248,6 +249,10 @@ module StpeteCrystal
 
 end
 ```
+
+To give a quick illustration how sessions work, we'll create a new session the first time a visitor stops by keeps track of the time of the first visit and the number of pages loaded.
+
+Load up `crystal src/stpete_crystal.cr` in your editor again, and 
 
 
 
