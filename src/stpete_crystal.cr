@@ -6,6 +6,7 @@ require "kilt/slang"
 module StpeteCrystal
 
   Session.config do |config|
+    config.timeout = 2.minutes
     config.cookie_name = "session_id"
     config.secret = "some_secret"
     config.gc_interval = 2.minutes # 2 minutes
