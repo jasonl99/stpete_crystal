@@ -69,7 +69,7 @@ that section by doing git checkout hello_word.
 * [Hello, Jason v2](hello_web_jason.md) A personalized web version of hello world.
 * [Shards](shards.md) Shards are crystal's equivalent to ruby gems.
 * [Sessions](web_session.md) Adding sessions to the web app
-
+* [WebSocket](web_socket.md) Web sockets FTW!
 
 ## Contributors
 
