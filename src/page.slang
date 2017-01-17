@@ -8,3 +8,4 @@ body
     | We've had 
     span#total-visits = total_visits 
     | total visits since the app started.
+  div#chat

@@ -8,6 +8,19 @@ module StpeteCrystal
   class_property visits = 0
   VISIT_SOCKETS = [] of HTTP::WebSocket
 
+  struct ChatMessage
+    property user : String
+    property time : Time
+    property msg  : String
+  end
+
+  class ChatRoom
+    class_property messages : [] of Hash(String,String)
+    def get_messages( limit : Int32 = 20 )
+      messages.last(limit)
+    end
+  end
+
   Session.config do |config|
     config.timeout = 2.minutes
     config.cookie_name = "session_id"
