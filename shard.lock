@@ -2,7 +2,7 @@ version: 1.0
 shards:
   kemal:
     github: kemalcr/kemal
-    commit: 42827c9a9df439640e1d2dec90bd21476197ca9b
+    commit: 209a9e576c5c71fef305d6bac2f64776e9404f97
 
   kemal-session:
     github: kemalcr/kemal-session
@@ -19,4 +19,8 @@ shards:
   radix:
     github: luislavena/radix
     version: 0.3.5
+
+  slang:
+    github: jeromegn/slang
+    version: 1.4.1
 
