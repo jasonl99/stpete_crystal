@@ -67,7 +67,8 @@ that section by doing git checkout hello_word.
 * [Hello, Jason!](hello_jason.md) The hello world app personalized
 * [Hello, web!](hello_web.md) A web version of hello word.
 * [Hello, Jason v2](hello_web_jason.md) A personalized web version of hello world.
-* [Sessions](session.md) Adding sessions to the web app
+* [Shards](shards.md) Shards are crystal's equivalent to ruby gems.
+* [Sessions](web_session.md) Adding sessions to the web app
 
 
 ## Contributors
