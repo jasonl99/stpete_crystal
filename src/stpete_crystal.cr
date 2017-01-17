@@ -5,10 +5,13 @@ require "kilt/slang"
 
 module StpeteCrystal
 
+  class_property visits = 0
+
   Session.config do |config|
+    config.timeout = 2.minutes
     config.cookie_name = "session_id"
     config.secret = "some_secret"
-    config.gc_interval = 2.minutes # 2 minutes
+    config.gc_interval = 2.minutes
   end
 
   get "/hello" do |context|
@@ -43,6 +46,7 @@ module StpeteCrystal
   # tie all the information we have on the visitor together
   # into a string.
   def self.display_hello( user_session : Session)
+    StpeteCrystal.visits += 1
     if user_session.string?("name")
       name = user_session.string("name").capitalize
     else
@@ -50,6 +54,7 @@ module StpeteCrystal
     end
     session_started = user_session.string("session_started")
     session_visits = user_session.int("visit_count")
+    total_visits = StpeteCrystal.visits
     render "./src/page.slang"
 
 
