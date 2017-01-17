@@ -1,3 +1,53 @@
+### Sessions
+
+Sessions are essential for a web server.  Kemal has a session manager shard which 
+we'll to the `shard.yml` file directly under the kemal shard:
+
+```yml
+dependencies:
+	kemal:
+		github: kemalcr/kemal
+		branch: master
+	kemal-session:
+		github: kemalcr/kemal-session
+		branch: master
+```
+
+run `shards install` 
+
+We'll configure sessions in the `crystal src/stpete_crystal.cr` again:
+
+```crystal
+require "./stpete_crystal/*"
+require "kemal"
+
+module StpeteCrystal
+
+  Session.config do |config|
+    config.cookie_name = "session_id"
+    config.secret = "sunshine"
+    config.gc_interval = 2.minutes
+  end
+
+  get "/hello" do |context|
+    "Hello, web!"
+  end
+
+  get "/hello/:name" do |context|
+    name = context.params.url["name"]
+    "Hello, #{name.capitalize}!"
+  end
+
+  Kemal.run
+
+end
+```
+
+To give a quick illustration how sessions work, we'll create a new session the first time a visitor stops by keeps track of the time of the first visit and the number of pages loaded.
+
+Load up `crystal src/stpete_crystal.cr` in your editor again, and update it:
+
+```crystal
 require "./stpete_crystal/*"
 require "kemal"
 require "kemal-session"
@@ -55,3 +105,5 @@ module StpeteCrystal
   Kemal.run
 
 end
+```
+
