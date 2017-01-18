@@ -1,13 +1,71 @@
-body {
-    width: 100px;
-    height: 100px;
-    background-color: red;
+/* body { */
+/*   position: relative; */
+/* } */
+.room {
+  font-family: Andale Mono, monospace;
+  border: 1px solid silver;
+  margin-top: 15px;
+  box-sizing: border-box;
+}
 
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.room span { 
+  padding: 2px 5px;
+  display: inline-block;
+  height: 1.2em;
+  vertical-align: middle;
+  text-overflow: wrap;
+}
 
-    margin: auto;
-  }
+.room span.time {
+  background-color: #fafafa;
+  border-right: 1px solid gray;
+}
+
+.room span.user {
+  background-color: #f8f8f8;
+  border-right: 1px solid gray;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.room .chat-form {
+  position: relative;
+  /* padding-bottom: 25px; */
+  margin-top: 2em;
+}
+
+
+.chat-form .button-wrapper {
+  position: absolute;
+  width: 75;
+  bottom: 0px;
+  /* background-color: blue; */
+  height: 1.5em;
+  border-top: 1px solid lightgray;
+}
+
+.room form input[type="button"] {
+  width: 100%;
+  border: 0;
+  height: 100%;
+}
+
+.chat-form .input-wrapper {
+  position: absolute;
+  left: 75px;
+  right: 0px;
+  bottom: 0px;
+  padding-left: 10px;
+  height: 1.5em;
+  /* background-color: yellow; */
+  border-top: 1px solid lightgray;
+
+}
+.room form input[type="text"] {
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+
