@@ -1,7 +1,12 @@
 /* body { */
 /*   position: relative; */
 /* } */
+#message-holder {
+  overflow-y: scroll;
+  height: 80%;
+}
 .room {
+  position: relative;
   font-family: Andale Mono, monospace;
   border: 1px solid silver;
   margin-top: 15px;
@@ -63,6 +68,7 @@
   border-top: 1px solid lightgray;
 
 }
+*:focus {outline: none;}
 .room form input[type="text"] {
   height: 100%;
   width: 100%;

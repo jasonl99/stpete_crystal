@@ -60,7 +60,6 @@ module StpeteCrystal
   # tie all the information we have on the visitor together
   # into a string.
   def self.display_hello( user_session : Session)
-    StpeteCrystal.visits += 1
     if user_session.string?("name")
       name = user_session.string("name").capitalize
     else
@@ -68,7 +67,8 @@ module StpeteCrystal
     end
     session_started = user_session.string("session_started")
     session_visits = user_session.int("visit_count")
-    total_visits = StpeteCrystal.visits
+    total_visits = StpeteCrystal.visits + 1
+    StpeteCrystal.visits += 1  # this is done separately; calling it within a render caused issues
     render "./src/views/page.slang"
   end
 
