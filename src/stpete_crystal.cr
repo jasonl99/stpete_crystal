@@ -7,34 +7,11 @@ require "colorize"
 module StpeteCrystal
 
   class_property visits = 0
-  @@chat_room = ChatRoom.new("St Pete Crystal", samples: 5)
-  class_property chat_room
-  SOCKETS = [] of HTTP::WebSocket
+  class_property chat_room = ChatRoom.new("St Pete Crystal", samples: 5)
 
-  class ClientSocket
-    property chat_room : ChatRoom
-    property socket    : HTTP::WebSocket
-
-    def initalize(@socket, @chat_room)
-      @socket.on_close {|closing| self.on_close}
-      @socket.on_message {|message| self.on_message message}
-    end
-
-    def on_close
-      SOCKETS.delete socket
-    end
-
-    def on_message(msg : String)
-      msg = JSON.parse msg
-      if msg["chatMessage"]?
-          puts "msg received: #{msg}".colorize(:red).on(:light_gray)
-          puts "msg[chatMessage] : #{msg["chatMessage"]}"
-          chat_message = ChatMessage.new(user: "socket", message: msg["chatMessage"].to_s)
-          chat_room.add_message(chat_message)
-      end
-    end
-
-  end
+  # @@chat_room = ChatRoom.new("St Pete Crystal", samples: 5)
+  # class_property chat_room
+  SOCKETS = [] of ClientSocket
 
   Session.config do |config|
     config.timeout = 2.minutes
@@ -44,21 +21,7 @@ module StpeteCrystal
   end
 
   ws "/socket" do |socket|
-    SOCKETS << ClientSocket.new(@
-    # socket.on_close do
-    #   SOCKETS.delete socket
-    # end
-    # socket.on_message do |msg|
-    #   # msg = msg.to_json
-    #   msg = JSON.parse msg
-
-    #   if msg["chatMessage"]?
-    #       puts "msg received: #{msg}".colorize(:red).on(:light_gray)
-    #       puts "msg[chatMessage] : #{msg["chatMessage"]}"
-    #       chat_message = ChatMessage.new(user: "socket", message: msg["chatMessage"].to_s)
-    #       chat_room.add_message(chat_message)
-    #   end
-    # end
+    SOCKETS << ClientSocket.new(socket, self.chat_room)
   end
 
   get "/hello" do |context|
@@ -74,7 +37,8 @@ module StpeteCrystal
 
   def self.visits=( visit_count : Int32 )
     @@visits = visit_count
-    SOCKETS.each {|socket| socket.send visit_count.to_s}
+    send = {"total-visits" => visit_count.to_s }.to_json
+    SOCKETS.each {|socket| socket.send send }
   end
 
   def self.update_session( user_session : Session, visitor_name : String)

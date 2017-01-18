@@ -1,7 +1,8 @@
+var StPeteCrystal = {}
 window.onload = function() {
-  var ws = new WebSocket("ws://" + location.host + "/socket");
+  StPeteCrystal["ws"] = new WebSocket("ws://" + location.host + "/socket");
   // Append each message
-  ws.onmessage = function(msg) { 
+  StPeteCrystal["ws"].onmessage = function(msg) { 
     console.log(msg);
     payload = JSON.parse(msg.data);
 
@@ -19,15 +20,15 @@ window.onload = function() {
     msg = document.getElementById("new-msg");
     send = JSON.stringify({chatMessage: msg.value});
     console.log("sending",send)
-    ws.send(send);
+    StPeteCrystal["ws"].send(send);
     document.getElementById("new-msg").value = ""
     console.log("Form submitted", evt)
     return false;
   }
 
-  window.onbeforeunload = function() {
-    websocket.onclose = function () {}; // disable onclose handler first
-    websocket.close()
-  };
+  // window.onbeforeunload = function() {
+  //   StPeteCrystal["ws"].onclose = function (a) {console.log(a)}; // disable onclose handler first
+  //   // StPeteCrystal["ws"].close()
+  // };
 };
 
