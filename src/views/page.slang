@@ -1,4 +1,6 @@
 head
+  script type="text/javascript"
+    == javascript
   script src="/js/visit_socket.js"
   link rel="stylesheet" href="/css/main.css"
 body

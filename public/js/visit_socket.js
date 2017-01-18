@@ -2,9 +2,17 @@ var StPeteCrystal = {}
 window.onload = function() {
   StPeteCrystal["ws"] = new WebSocket("ws://" + location.host + "/socket");
   // Append each message
-  StPeteCrystal["ws"].onmessage = function(msg) { 
-    console.log(msg);
-    payload = JSON.parse(msg.data);
+  StPeteCrystal["ws"].onopen = function(evt) {
+    console.log(evt.target);
+    console.log(app_vars);
+    msg = JSON.stringify({sessionID: app_vars["sessionID"]});
+    console.log("msg", msg);
+    evt.target.send(msg);
+    return true;
+  }
+  StPeteCrystal["ws"].onmessage = function(socket) { 
+    console.log(socket.data)
+    payload = JSON.parse(socket.data);
 
     if (payload.hasOwnProperty('total-visits')) {
       messageHolder = document.getElementById("total-visits");
@@ -34,8 +42,8 @@ window.onload = function() {
   }
 
   window.onbeforeunload = function() {
-    StPeteCrystal["ws"].onclose = function () {alert("no close!")}; // disable onclose handler first
-    // StPeteCrystal["ws"].close()
+    StPeteCrystal["ws"].onclose = function () {}; // disable onclose handler first
+    StPeteCrystal["ws"].close()
   };
 };
 

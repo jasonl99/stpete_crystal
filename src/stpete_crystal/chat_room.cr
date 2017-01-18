@@ -22,17 +22,17 @@ module StpeteCrystal
 
     def add_message( message : ChatMessage)
       message.id = ( self.class.next_id += 1)
-      @messages << message
-      puts "ChatMessage added: #{message.inspect}"
       send_message message
+      @messages << message
       prune if @messages.size > MAX_MESSAGES
     end
 
     # send a message to all sockets
     def send_message( message : ChatMessage )
-      puts "Sending message"
+
+      # puts "send message #{message}"
       send = {"newMessage" => message.display }.to_json
-      puts "message.class: #{send.class}"
+      # puts "sending message to #{SOCKETS.size} sockets"
       SOCKETS.each &.send(send)
     end 
 

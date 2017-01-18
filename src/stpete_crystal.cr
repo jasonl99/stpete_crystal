@@ -21,7 +21,7 @@ module StpeteCrystal
   end
 
   ws "/socket" do |socket|
-    SOCKETS << ClientSocket.new(socket, self.chat_room)
+    SOCKETS << ClientSocket.new socket, self.chat_room 
   end
 
   get "/hello" do |context|
@@ -38,6 +38,7 @@ module StpeteCrystal
   def self.visits=( visit_count : Int32 )
     @@visits = visit_count
     send = {"total-visits" => visit_count.to_s }.to_json
+    puts "sockets total #{SOCKETS.size}".colorize(:yellow)
     SOCKETS.each {|socket| socket.send send }
   end
 
@@ -59,6 +60,10 @@ module StpeteCrystal
 
   # tie all the information we have on the visitor together
   # into a string.
+  def self.create_javascript( user_session : Session)
+     "var app_vars = " +  {"sessionID" => user_session.id}.to_json + ";"
+  end
+
   def self.display_hello( user_session : Session)
     if user_session.string?("name")
       name = user_session.string("name").capitalize
@@ -68,6 +73,8 @@ module StpeteCrystal
     session_started = user_session.string("session_started")
     session_visits = user_session.int("visit_count")
     total_visits = StpeteCrystal.visits + 1
+    session_id = user_session.id
+    javascript = create_javascript( user_session)
     StpeteCrystal.visits += 1  # this is done separately; calling it within a render caused issues
     render "./src/views/page.slang"
   end
