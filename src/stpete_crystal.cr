@@ -6,7 +6,7 @@ require "kilt/slang"
 module StpeteCrystal
 
   class_property visits = 0
-  @@chat_room = ChatRoom.new("St Pete Crystal", samples: 15)
+  @@chat_room = ChatRoom.new("St Pete Crystal", samples: 5)
   class_property chat_room
 
   SOCKETS = [] of HTTP::WebSocket
@@ -15,7 +15,7 @@ module StpeteCrystal
     property name = "Chat Room"
     @message_id = 0
     @messages = [] of ChatMessage
-    MAX_MESSAGES = 25 
+    MAX_MESSAGES = 5
 
     def status
       puts "Size: #{@messages.size}"
@@ -34,8 +34,18 @@ module StpeteCrystal
     def add_message( message : ChatMessage)
       message.id = ( self.class.next_id += 1)
       @messages << message
+      puts "ChatMessage added: #{message.inspect}"
+      send_message message
       prune if @messages.size > MAX_MESSAGES
     end
+
+    # send a message to all sockets
+    def send_message( message : ChatMessage )
+      puts "Sending message"
+      send = {"newMessage" => message.display }.to_json
+      puts "message.class: #{send.class}"
+      SOCKETS.each &.send(send)
+    end 
 
     def get_messages( max  = 10 )
       # we assume messages were added in order
@@ -90,7 +100,15 @@ module StpeteCrystal
       SOCKETS.delete socket
     end
     socket.on_message do |msg|
-      puts "Message received #{msg}"
+      # msg = msg.to_json
+      msg = JSON.parse msg
+
+      if msg["chatMessage"]?
+          puts "msg received: #{msg}, msg_class: #{msg.class}"
+          puts "msg[chatMessage] : #{msg["chatMessage"]}"
+          chat_message = ChatMessage.new(user: "socket", message: msg["chatMessage"].to_s)
+          chat_room.add_message(chat_message)
+      end
     end
   end
 
@@ -105,9 +123,6 @@ module StpeteCrystal
     display_hello( context.session)
   end
 
-  # updates the current visitor's session, including the name.
-  # This exploits one of crystal's features that's not
-  # available in ruby: method overloads.
   def self.visits=( visit_count : Int32 )
     @@visits = visit_count
     SOCKETS.each {|socket| socket.send visit_count.to_s}

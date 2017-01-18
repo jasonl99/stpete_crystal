@@ -1,3 +1,5 @@
 div class="room" id=name data-status=status
-  == display_messages
-  == display_form
+  div#message-holder
+    == display_messages
+  div#form-holder
+    == display_form
