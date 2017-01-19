@@ -1,3 +1,9 @@
+require "kemal"
+
 module StpeteCrystal
-  puts "Hello, #{ARGV[0]? || "world"}!"
+  get "/hello" do |context|
+    "Hello, web!"
+  end
+  Kemal.run
+
 end
