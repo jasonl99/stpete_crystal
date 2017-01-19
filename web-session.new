@@ -1,0 +1,33 @@
+# Sessions
+
+Sessions are like any other web server.  A web session is not much more than the initial
+communication between the web server and browser, with the ability to set headers and cookies.
+
+A session manager simplifies it enough that we don't have to worry about any of this.
+
+[kemal-session](https://github.com/kemalcr/kemal-session) is just such a session manager, 
+and we'll add it to our app.
+
+### kemal-session
+
+First we add it to the shard.yml file
+
+```yml
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    branch: master
+  kemal-session:
+    github: kemalcr/kemal-session
+    branch: master
+```
+
+and install it
+
+```bash
+shards install
+```
+
+We'll add code in the next section.
+
+
