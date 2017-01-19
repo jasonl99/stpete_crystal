@@ -137,6 +137,53 @@ ___Boom.  Mic Drop.___
 
 Haha.  Ok, still not doing anything useful.
 
+We have to do a few new things.  For one, the browser needs to open a socket, we can't force it.
+So that means we have to add javacript.  Kemal automatically serves from a `./pubic` directory,
+so we'll put it in `'./public/js/visit_socket.js`
 
+```javascript
+var StPeteCrystal = {}
+window.onload = function() {
+  StPeteCrystal["ws"] = new WebSocket("ws://" + location.host + "/socket");
+  StPeteCrystal["ws"].onmessage = function(socket) { 
+    console.log(socket.data)
 
+  window.onbeforeunload = function() {
+    StPeteCrystal["ws"].onclose = function () {}; // disable onclose handler first
+    StPeteCrystal["ws"].close()
+  };
+};
+```
+
+This does nothing useful yet, other than open the socket and print out anything it receives
+to the console.  We're updating total visits.  Recall from the `./views/page.slang` we had
+a `span#total-visits` (in slim/slang, this means `<span id="total-visits"></span>`
+
+So we're going to read socket.data, assume it's JSON, and if there's a key of "total-vists"
+update that element.
+
+```javascript
+StPeteCrystal["ws"].onmessage = function(socket) { 
+    payload = JSON.parse(socket.data);
+
+    if (payload.hasOwnProperty('total-visits')) {
+      messageHolder = document.getElementById("total-visits");
+      messageHolder.innerHTML = payload["total-visits"];
+    }
+```
+
+That's it for the client side.  For the server, we need to update all the sockets that
+we've kept track of in `SOCKETS` and send this data.
+
+Simple.  We override the `visits=` method and send out the data
+
+```crystal
+  def self.visits=( visit_count : Int32 )
+    @@visits = visit_count
+    send = {"total-visits" => visit_count.to_s }.to_json
+    SOCKETS.each {|socket| socket.send send }
+  end
+```
+
+Now for the fun part.  What it happen.
 
