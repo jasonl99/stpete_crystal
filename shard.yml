@@ -15,8 +15,6 @@ dependencies:
   kemal-session:
     github: kemalcr/kemal-session
     branch: master
-  slang:
-    github: jeromegn/slang
 
 crystal: 0.20.3
 
