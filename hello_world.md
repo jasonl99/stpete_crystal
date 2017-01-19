@@ -8,8 +8,6 @@ In the `./src/` directory, you'll find `stpete_crystal.cr`.  Add the line right 
 tells you to (seriously, the generator added `# Put your code here`, how cool is that?)
 
 ```crystal
-require "./stpete_crystal/*"
-
 module StpeteCrystal
   # TODO Put your code here
   puts "Hello, world!"
