@@ -11,6 +11,7 @@
   border: 1px solid silver;
   margin-top: 15px;
   box-sizing: border-box;
+  max-height: 70%:
 }
 
 .room span { 
@@ -53,6 +54,8 @@
 
 .room form input[type="button"] {
   width: 100%;
+  background: darkgray;
+  color: white;
   border: 0;
   height: 100%;
 }

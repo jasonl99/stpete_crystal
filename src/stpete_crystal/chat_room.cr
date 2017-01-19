@@ -4,7 +4,7 @@ module StpeteCrystal
     property name = "Chat Room"
     @message_id = 0  # the last assigned id for messages
     @messages = [] of ChatMessage
-    MAX_MESSAGES = 5
+    MAX_MESSAGES = 20
 
     def status
       puts "Size: #{@messages.size}"
@@ -24,7 +24,7 @@ module StpeteCrystal
       message.id = ( self.class.next_id += 1)
       send_message message
       @messages << message
-      prune if @messages.size > MAX_MESSAGES
+      prune
     end
 
     # send a message to all sockets
@@ -38,7 +38,7 @@ module StpeteCrystal
 
     def get_messages( max  = 10 )
       # we assume messages were added in order
-      @messages
+      @messages.last(max)
     end
 
     def display_messages
@@ -54,7 +54,7 @@ module StpeteCrystal
     end
 
     def prune
-      @messages = @messages[0..MAX_MESSAGES-1]
+      @messages = @messages.last(MAX_MESSAGES) if @messages.size > MAX_MESSAGES
     end
 
   end

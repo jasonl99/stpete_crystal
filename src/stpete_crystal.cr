@@ -12,6 +12,7 @@ module StpeteCrystal
   # @@chat_room = ChatRoom.new("St Pete Crystal", samples: 5)
   # class_property chat_room
   SOCKETS = [] of ClientSocket
+  names = [] of String  # keep track of what names have been used
 
   Session.config do |config|
     config.timeout = 2.minutes
@@ -25,6 +26,7 @@ module StpeteCrystal
   end
 
   get "/hello" do |context|
+    puts context.response.headers.inspect
     update_session(context.session)
     display_hello( context.session)
   end
@@ -42,8 +44,21 @@ module StpeteCrystal
     SOCKETS.each {|socket| socket.send send }
   end
 
+  def self.unique_name(visitor_name : String)
+    names = SOCKETS.select(&.session).map(&.name)
+    puts names
+    visitor_name = "#{visitor_name}_01" if names.index(visitor_name) 
+    puts "Index: #{names.index(name)}"
+    while names.index(visitor_name) 
+      puts "current visitor name: #{visitor_name}"
+      visitor_name = visitor_name.succ
+    end
+    visitor_name
+  end
+
   def self.update_session( user_session : Session, visitor_name : String)
-    user_session.string("name", visitor_name)
+    validated_name = unique_name visitor_name
+    user_session.string("name", validated_name)
     update_session(user_session)
   end
 
