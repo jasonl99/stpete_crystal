@@ -68,7 +68,7 @@ exists for that section by doing git checkout hello_word.
 * [Shards](shards.md) Shards are crystal's equivalent to ruby gems.
 * [Hello, web!](hello_web.md) A web version of hello word.
 * [Hello, Jason v2](hello_web_jason.md) A personalized web version of hello world.
-* [Sessions](web_session.md) Adding sessions to the web app
+* [Sessions](web-session.md) Adding sessions to the web app
 * [Global Visitor Count](global_visits.md) We add a global visitor count (an old school "hit counter")
 * [WebSocket](websocket.md) Web sockets FTW!
 
