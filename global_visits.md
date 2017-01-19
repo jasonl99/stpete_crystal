@@ -45,3 +45,62 @@ body
 ```
 
 That becomes our web page when we `render "./src/views/page.slang"`
+
+We don't have to make a lot of changes to our code.
+
+```crystal
+
+module StpeteCrystal
+  class_property visits = 0
+  #... all the other code
+end
+```
+
+Like rails, we end up with a getter and setter (you can also use class_getter and class_setter).
+`class_property` is actually a macro that inserts the following code:
+
+```crystal
+def self.visits
+  @@self.visits
+end
+
+def self.visits=(val)
+  @@self.visits=val
+end
+```
+
+Like ruby, crystal uses `@` for instance variables and `@@` for class variables.
+
+We make one more change to our `display_hello` method:
+
+```crystal
+  def self.display_hello( user_session : Session)
+    StpeteCrystal.visits += 1
+    if user_session.string?("name")
+      name = user_session.string("name").capitalize
+    else
+      name = "web"
+    end
+    session_started = user_session.string("session_started")
+    session_visits = user_session.int("visit_count")
+    total_visits = StpeteCrystal.visits
+    render "./src/views/page.slang"
+  end
+
+```
+
+Every time we run `display_hello` we increment the counter.  We also create a total_visits variable
+for use in `./src/views/page.slang`.
+
+And that's it.  We now visit our page and it looks like this:
+
+---
+# Hello, web!
+
+You started your visit at 2017-01-19 17:01:35 -0500 and you've visited 1
+We've had 1 total visits since the app started.<Paste>
+
+---
+
+Now on to more magic.
+
