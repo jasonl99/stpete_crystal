@@ -1,4 +1,4 @@
-div class="room" id=name data-status=status
+div class="room" id=name
   div#message-holder
     == display_messages
   div#form-holder

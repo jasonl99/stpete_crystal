@@ -1,17 +1,21 @@
 /* body { */
 /*   position: relative; */
 /* } */
+#body {
+  height: 90%
+  position: relative;
+}
 #message-holder {
   overflow-y: scroll;
-  height: 80%;
+  height: 225px;
 }
 .room {
   position: relative;
   font-family: Andale Mono, monospace;
   border: 1px solid silver;
   margin-top: 15px;
+  max-height: 75%;
   box-sizing: border-box;
-  max-height: 70%:
 }
 
 .room span { 
