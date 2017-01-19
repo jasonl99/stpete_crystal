@@ -185,5 +185,13 @@ Simple.  We override the `visits=` method and send out the data
   end
 ```
 
-Now for the fun part.  What it happen.
+Now for the fun part.
+
+Load up `http://localhost:3000/hello`.  Run apache-bench with 10,000 request, 20 at a time:
+
+```bash
+ab -n 10000 -c 20 localhost:3000/hello
+```
+
+
 
