@@ -1,4 +1,5 @@
-# WebSocket
+# WebSocket (git branch websockets)
+
 
 WebSockets are extremely simple full-duplex connections between client and server.  The are
 both simpler and more powerful than AJAX.  A socket connection offers nothing useful on its

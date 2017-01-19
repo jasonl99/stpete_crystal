@@ -72,6 +72,11 @@ exists for that section by doing git checkout hello_word.
 * [Global Visitor Count](global_visits.md) We add a global visitor count (an old school "hit counter")
 * [WebSocket](websocket.md) Web sockets FTW!
 
+
+At this point, the basics are in.  We'll fast-forward ahead and show the 
+resulting chat app, and walk through the changes that took us from a live-updating
+counter to a live updating chat page.
+
 ## Contributors
 
 - [Jason Landry](https://github.com/jasonl99) Jason Landry - creator, maintainer
