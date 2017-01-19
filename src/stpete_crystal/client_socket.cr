@@ -31,11 +31,7 @@ module StpeteCrystal
     # if it's not, log something noticeable
     def send(msg)
       # the client may have closed the socket, in which case we get rid of it.
-      if socket.closed?
-        puts "Attempted to send a message to a closed socket".colorize(:yellow)
-      else
-        socket.send msg
-      end
+      socket.send msg
     end
 
     # when a socket is closed (this happens from the client closing it on thier end)
@@ -57,7 +53,6 @@ module StpeteCrystal
     # the only things we do are set a session and add to the chat room,
     # so ignore anything else.
     def on_message(msg : String)
-      puts "msg received: #{msg}".colorize(:red).on(:light_gray)
       msg = JSON.parse msg
       set_session(msg) 
       if msg["chatMessage"]? && msg["chatMessage"].to_s.size > 0

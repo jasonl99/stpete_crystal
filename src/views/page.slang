@@ -15,4 +15,3 @@ body
     | We've had 
     span#total-visits = total_visits 
     | total visits since the app started.
-  == chat_room.display

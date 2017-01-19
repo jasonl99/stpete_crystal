@@ -1,6 +1,7 @@
 require "./stpete_crystal/*"    # require all files in this directory
 require "kemal"                 # dependency in shard.yml 
 require "kemal-session"         # dependency in shard.yml 
+require "kilt/slang"
 
 # The base namespace of our demo.  Any class or properties defined
 # wiithin the module remain safe from other libraries, shards, etc.
