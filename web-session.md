@@ -107,4 +107,11 @@ module StpeteCrystal
 end
 ```
 
+You'll find if you go to `localhost:3000/hello/jason` you get some
+nice informative text, like this:
 
+```
+Hello Jason! Your visit started 2017-01-19 15:16:20 -0500 and you've loaded 2 pages.
+``` 
+
+Ok, maybe not all that useful, but certainly demonstrates that sessions are working.
