@@ -1,8 +1,11 @@
 require "./stpete_crystal/*"
 require "kemal"
 require "kemal-session"
+require "kilt/slang"
 
 module StpeteCrystal
+
+  class_property visits = 0
 
   Session.config do |config|
     config.timeout = 2.minutes
@@ -43,14 +46,17 @@ module StpeteCrystal
   # tie all the information we have on the visitor together
   # into a string.
   def self.display_hello( user_session : Session)
+    StpeteCrystal.visits += 1
     if user_session.string?("name")
-      user_name = user_session.string("name").capitalize
+      name = user_session.string("name").capitalize
     else
-      user_name = "web"
+      name = "web"
     end
-    "Hello #{user_name}! Your visit started 
-     #{user_session.string("session_started")} 
-     and you've loaded #{user_session.int("visit_count")} pages."
+    session_started = user_session.string("session_started")
+    session_visits = user_session.int("visit_count")
+    total_visits = StpeteCrystal.visits
+    render "./src/views/page.slang"
+
   end
 
   Kemal.run

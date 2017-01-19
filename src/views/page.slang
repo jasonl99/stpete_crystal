@@ -1,9 +1,4 @@
 head
-  meta name="viewport" content="width=device-width, initial-scale=1"
-  script type="text/javascript"
-    == javascript
-  script src="/js/visit_socket.js"
-  link rel="stylesheet" href="/css/main.css"
 body
   h1 = "Hello, #{name}!"
   div
@@ -15,4 +10,3 @@ body
     | We've had 
     span#total-visits = total_visits 
     | total visits since the app started.
-  == chat_room.display
