@@ -197,5 +197,5 @@ ab -n 10000 -c 20 localhost:3000/hello
 Here's an animated gif that shows the live updates.  It's a bit slower due to `byzanz-record`, which
 was used for recording.
 
-[example](updating.gif)
+![example](updating.gif)
 
