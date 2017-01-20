@@ -74,8 +74,8 @@ exists for that section by doing git checkout hello_word.
 
 
 At this point, the basics are in.  We'll fast-forward ahead and show the 
-resulting chat app, and walk through the changes that took us from a live-updating
-counter to a live updating chat page.
+resulting chat app, and [walk through the changes](chat.md) that took us from a 
+live-updating counter to a live updating chat page.
 
 ## Contributors
 
