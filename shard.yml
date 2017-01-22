@@ -17,6 +17,7 @@ dependencies:
     branch: master
   slang:
     github: jeromegn/slang
+    branch: master
 
 crystal: 0.20.3
 
